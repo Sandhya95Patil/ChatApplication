@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\ChatApp\CommonLayer\bin\Debug\netcoreapp2.1\CommonLayer.deps.json
+C:\Users\admin\source\repos\ChatApp\CommonLayer\bin\Debug\netcoreapp2.1\CommonLayer.dll
+C:\Users\admin\source\repos\ChatApp\CommonLayer\bin\Debug\netcoreapp2.1\CommonLayer.pdb
+C:\Users\admin\source\repos\ChatApp\CommonLayer\obj\Debug\netcoreapp2.1\CommonLayer.AssemblyInfoInputs.cache
+C:\Users\admin\source\repos\ChatApp\CommonLayer\obj\Debug\netcoreapp2.1\CommonLayer.AssemblyInfo.cs
+C:\Users\admin\source\repos\ChatApp\CommonLayer\obj\Debug\netcoreapp2.1\CommonLayer.dll
+C:\Users\admin\source\repos\ChatApp\CommonLayer\obj\Debug\netcoreapp2.1\CommonLayer.pdb
