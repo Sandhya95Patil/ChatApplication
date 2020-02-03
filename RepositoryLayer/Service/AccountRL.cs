@@ -1,33 +1,58 @@
-﻿using CommonLayer.Model;
-using CommonLayer.Response;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using RepositoryLayer.EncryptPassword;
-using RepositoryLayer.Interface;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="AccountRL.cs" company="BridgeLabz">
+//     Company copyright tag.
+// </copyright>
+// <creater name="Sandhya Patil"/>
+//-----------------------------------------------------------------------
 namespace RepositoryLayer.Service
 {
+    using CommonLayer.Model;
+    using CommonLayer.Response;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.IdentityModel.Tokens;
+    using RepositoryLayer.EncryptPassword;
+    using RepositoryLayer.Interface;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Security.Claims;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// AccountRL class
+    /// </summary>
     public class AccountRL : IAccountRL
     {
+        /// <summary>
+        /// Inject IConfiguration method for connetcing with databse
+        /// </summary>
         private readonly IConfiguration configuration;
+
+        /// <summary>
+        /// Initializes AccountRl class 
+        /// </summary>
+        /// <param name="configuration">configuration parameter</param>
         public AccountRL (IConfiguration configuration)
         {
             this.configuration = configuration;
         }
-       
+
+        /// <summary>
+        /// This method is for registration 
+        /// </summary>
+        /// <param name="registrationModel">registrationModel parameter</param>
+        /// <returns>it return register data</returns>
         public async Task<RegistrationModel> ChatAppRegistration(RegistrationModel registrationModel)
         {
             try
             {
+                ////Password encrypt
                 var password = PasswordEncrypt.Encryptdata(registrationModel.Password);
+
+                ////Connect with database using SqlConnection
                 SqlConnection sqlConnection = new SqlConnection(configuration["ConnectionStrings:connectionDb"]);
                 SqlCommand sqlCommand = new SqlCommand("ChatAppRegistration", sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -37,6 +62,7 @@ namespace RepositoryLayer.Service
                 sqlCommand.Parameters.AddWithValue("@Password", password);
                 sqlCommand.Parameters.AddWithValue("@MobileNumber", registrationModel.MobileNumber);
                 sqlConnection.Open();
+
                 var response = await sqlCommand.ExecuteNonQueryAsync();
                 if (response > 0)
                 {
@@ -61,6 +87,12 @@ namespace RepositoryLayer.Service
                 throw new Exception(exception.Message);
             }
         }
+
+        /// <summary>
+        /// This method is for login 
+        /// </summary>
+        /// <param name="loginModel">loginModel parameter</param>
+        /// <returns>it returns login data</returns>
         public async Task<LoginResponseModel> ChatAppLogin(LoginModel loginModel)
         {
             try
@@ -128,6 +160,38 @@ namespace RepositoryLayer.Service
                 {
                     return null;
                 }
+            }
+            catch (Exception exception)
+            {
+                throw new Exception(exception.Message);
+            }
+        }
+
+        public async Task<IList<AllUserModel>> GetAllUsers()
+        {
+            try
+            {
+                SqlConnection sqlConnection = new SqlConnection(configuration["ConnectionStrings:connectionDb"]);
+                SqlCommand sqlCommand = new SqlCommand("GetAllUsers", sqlConnection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
+                IList<AllUserModel> registrations = new List<AllUserModel>();
+                AllUserModel model = new AllUserModel();
+
+                while (sqlDataReader.Read())
+                {
+                    model = new AllUserModel();
+                    model.Id = Convert.ToInt32(sqlDataReader["Id"]);
+                    model.FirstName = sqlDataReader["FirstName"].ToString();
+                    model.LastName = sqlDataReader["LastName"].ToString();
+                    model.Email = sqlDataReader["Email"].ToString();
+                    model.MobileNumber = sqlDataReader["MobileNumber"].ToString();
+                    registrations.Add(model);
+                }
+                sqlConnection.Close();
+                return registrations;
+
             }
             catch (Exception exception)
             {

@@ -1,24 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BusinessLayer.Interface;
-using CommonLayer.Model;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="AccountController.cs" company="BridgeLabz">
+//     Company copyright tag.
+// </copyright>
+// <creater name="Sandhya Patil"/>
+//-----------------------------------------------------------------------
 namespace ChatApp.Controllers
 {
+    using System;
+    using System.Threading.Tasks;
+    using BusinessLayer.Interface;
+    using CommonLayer.Model;
+    using Microsoft.AspNetCore.Mvc;
+
+    /// <summary>
+    /// AccountController class
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
+        /// <summary>
+        /// Inject Account interface of business layer
+        /// </summary>
         private readonly IAccountBL accountBL;
+
+        /// <summary>
+        /// Initializes the Account Controller
+        /// </summary>
+        /// <param name="accountBL"></param>
         public AccountController (IAccountBL accountBL)
         {
             this.accountBL = accountBL;
         }
 
+        /// <summary>
+        /// ChatAppSignUp Method
+        /// </summary>
+        /// <param name="registrationModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("SignUp")]
         public async Task<IActionResult> ChatAppSignUp(RegistrationModel registrationModel)
@@ -40,6 +59,12 @@ namespace ChatApp.Controllers
                 return this.BadRequest(new { message = exception.Message });
             }
         }
+
+        /// <summary>
+        /// ChatAppLogin method
+        /// </summary>
+        /// <param name="loginModel">loginModel parameter</param>
+        /// <returns>returns the login data</returns>
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> ChatAppLogin(LoginModel loginModel)
@@ -54,6 +79,28 @@ namespace ChatApp.Controllers
                 else
                 {
                     return this.BadRequest(new { status = "False", message = "Failed To Login" });
+                }
+            }
+            catch (Exception exception)
+            {
+                return this.BadRequest(new { message = exception.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route ("AllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            try
+            {
+                var data = await this.accountBL.GetAllUsers();
+                if (data != null)
+                {
+                    return this.Ok(new { status = "true", message = "All Users", data });
+                }
+                else
+                {
+                    return this.BadRequest(new { status = "false", message = "Failed To Get All Users" });
                 }
             }
             catch (Exception exception)
