@@ -1,80 +1,75 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>Echo Example</title>
+    <!--<link rel="stylesheet" type="text/css" href="/css/site.css">-->
 
-    <style>
-        html, body, form, input {
-            margin: 0px;
-            padding: 0px;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        input {
-            display: block;
-            text-align: center;
-            font-size: 24px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-    </style>
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/sass.js/0.6.3/sass.min.js"></script>-->
+    
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 
+    <script type="text/javascript" src="/js//AllUsers.js"></script>
 
-    <script src="/js//AllUsers.js"></script>
-
+    <title>ChatApp</title>
 </head>
 <body>
-    <button type="button" class="btn float-right login_btn"  onclick="AllUsers()"> AllUsers</button>
-    <div id="result">
+
+    <div id="toolbar" style="justify-content:space-between">
+        <h1>ChatAPP</h1>
+            <button type="submit" class="out">SignOut</button>
+        </div>
+    <div style="justify-content:space-between">
+        <div id="users">
+            <ul class="list">
+                <li>
+                    <h3 class="name"></h3>
+                </li>
+            </ul>
+        </div>
+        <div id="chatBox">
+            <button id="sendMessage"></button>
+        </div>
     </div>
+  
 
-    <form id="form">
-        <input id="message" autocomplete="off" />
-
-    </form>
-    <script>
-        (function () {
-            var webSocketProtocol = location.protocol == "https:" ? "wss:" : "ws:";
-            console.log("protocol=============>", webSocketProtocol);
-
-            var webSocketURI = webSocketProtocol + "//" + location.host + "/ws";
-            console.log("Url", webSocketURI);
-
-            socket = new WebSocket(webSocketURI);
-            console.log("Socket", socket);
-
-            socket.onopen = function (e) {
-                console.log("Connected.", e);
-            };
-            socket.onclose = function (event) {
-                if (event.wasClean) {
-                    console.log('Disconnected.');
-                }
-                else {
-                    console.log('Connection lost.'); // for example if server processes is killed
-                }
-                console.log('Code: ' + event.code + '. Reason: ' + event.reason);
-            };
-
-            socket.onmessage = function (event) {
-                console.log("Data received: " + event.data);
-            };
-
-            socket.onerror = function (error) {
-                console.log("Error: " + error.message);
-            };
-
-            var form = document.getElementById('form');
-            var message = document.getElementById('message');
-            form.onsubmit = function () {
-                socket.send(message.value);
-                message.value = '';
-                return false;
-            };
-        })();
-    </script>
+    <style>
+        #toolbar{
+          display:flex;
+          background-color:gray;
+          height:7rem; 
+          color:rebeccapurple;
+          margin-top:auto;
+        }
+        .out {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 70px;
+            font-family: "Roboto", sans-serif;
+            text-transform: uppercase;
+            background: green;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 9%;
+            border:0;
+            outline:0;
+        }
+        #users{
+            background-color:pink;
+            height:50rem;
+            float:left;
+            width:20%;
+            margin-top:3rem;
+            margin-bottom:auto;
+        }
+         #chatBox{
+            background-color:pink;
+            float:left;
+            height:50rem;
+            width:70%;
+            margin-left:20px;
+            margin-top:3rem;
+            margin-bottom:auto;
+        }
+    </style>
 </body>
 </html>
