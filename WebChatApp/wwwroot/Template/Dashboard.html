@@ -7,7 +7,7 @@
     
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 
-    <script type="text/javascript" src="/js//AllUsers.js"></script>
+    <script type="text/javascript" src="/js/AllUsers.js"></script>
 
     <title>ChatApp</title>
 </head>
@@ -15,37 +15,35 @@
 
     <div id="toolbar" style="justify-content:space-between">
         <h1>ChatAPP</h1>
-            <button type="submit" class="out">SignOut</button>
+            <button type="submit" class="signout" onclick="SignOut()">SignOut</button>
         </div>
-    <div style="justify-content:space-between">
         <div id="users">
-            <ul class="list">
-                <li>
-                    <h3 class="name"></h3>
-                </li>
-            </ul>
+                <ul id="lists">
+                    <li id="abc">
+                        <h3 id="name">Chats</h3>
+                    </li>
+                </ul>
         </div>
-        <div id="chatBox">
-            <button id="sendMessage"></button>
+        <div id="receiver" onclick="GetName()">
+             <label id="label">User</label>
         </div>
-    </div>
-  
-
     <style>
+        body{
+            background-image:url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');   
+        }
         #toolbar{
           display:flex;
-          background-color:gray;
+          background-color:paleturquoise;
           height:7rem; 
           color:rebeccapurple;
-          margin-top:auto;
         }
-        .out {
+        .signout {
             margin-top: 10px;
             margin-bottom: 10px;
             margin-left: 70px;
             font-family: "Roboto", sans-serif;
             text-transform: uppercase;
-            background: green;
+            background: orange;
             padding: 10px;
             font-size: 14px;
             cursor: pointer;
@@ -53,22 +51,26 @@
             border:0;
             outline:0;
         }
-        #users{
-            background-color:pink;
-            height:50rem;
-            float:left;
-            width:20%;
-            margin-top:3rem;
-            margin-bottom:auto;
+        #users {
+            background-color: pink;
+            height: 50rem;
+            float: left;
+            width: 20%;
+            margin-top: 1rem;
+            margin-bottom: auto;
         }
-         #chatBox{
-            background-color:pink;
+        #name{
+            color:blueviolet;
+            font-size:20px;
+        }
+        #receiver{
             float:left;
-            height:50rem;
-            width:70%;
-            margin-left:20px;
-            margin-top:3rem;
+            width:75%;
+            background-color:pink;
+            margin-top:1rem;
             margin-bottom:auto;
+            height:50rem;
+            margin-left:40px;
         }
     </style>
 </body>

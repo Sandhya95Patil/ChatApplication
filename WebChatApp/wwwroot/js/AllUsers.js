@@ -1,6 +1,10 @@
 ﻿$(document).ready(function () {
     AllUsers();
 })
+function userListClick(name) {
+    alert("session storage " + name);
+    sessionStorage.setItem('name', name);
+}
 function AllUsers() {
     $.ajax({
         url: "https://localhost:44374/api/Account/AllUsers",
@@ -14,11 +18,21 @@ function AllUsers() {
 
             $.each(result.data, function (key, item) {
                 console.log("Item======", item.firstName);
-                $('#users .list').append('<li><h3 class="name">' + item.firstName + '</h3></li>')
+                $('#users #lists').append('<li onClick="userListClick(\'' + item.firstName +'\')"><a href="Message.html"><h3>' + item.firstName + '</h3></a></li>')   
             })      
         },
         error: function (error) {
             console.log("Error", error);
         }
     })
+};
+function SignOut() {
+    localStorage.clear();
+    window.location.href = "/";
+}
+
+function GetName() {
+    var name = sessionStorage.getItem('name');
+    console.log("name", name);
+    $('#receiver').append('<label>' +name+'</label>')
 }
