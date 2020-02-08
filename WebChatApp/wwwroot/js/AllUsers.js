@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
     AllUsers();
+
+  
 })
 function userListClick(name) {
     alert("session storage " + name);
@@ -29,10 +31,4 @@ function AllUsers() {
 function SignOut() {
     localStorage.clear();
     window.location.href = "/";
-}
-
-function GetName() {
-    var name = sessionStorage.getItem('name');
-    console.log("name", name);
-    $('#receiver').append('<label>' +name+'</label>')
 }

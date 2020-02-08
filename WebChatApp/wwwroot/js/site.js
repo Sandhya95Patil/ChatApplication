@@ -15,9 +15,11 @@ function LoginForm() {
         success: function (result) {
             console.log("Login", result);
             localStorage.setItem("token", result.data.token);
+
                 alert("Now You Are Redirect To Dashboard");
                 var location = window.location.href = "./Template//Dashboard.html";
-                console.log("location", location);
+            console.log("location", location);
+
         },
         error: function (errormessage) {
             console.log("error", errormessage.responseText);

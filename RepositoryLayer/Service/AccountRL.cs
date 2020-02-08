@@ -40,6 +40,8 @@ namespace RepositoryLayer.Service
             this.configuration = configuration;
         }
 
+        private readonly string ConnectionString = "server=(LocalDb)\\LocalDB;Database=ChatAppDB;Trusted_Connection=true; MultipleActiveResultSets = true";
+
         /// <summary>
         /// This method is for registration 
         /// </summary>
@@ -53,7 +55,9 @@ namespace RepositoryLayer.Service
                 var password = PasswordEncrypt.Encryptdata(registrationModel.Password);
 
                 ////Connect with database using SqlConnection
-                SqlConnection sqlConnection = new SqlConnection(configuration["ConnectionStrings:connectionDb"]);
+                //SqlConnection sqlConnection = new SqlConnection(configuration["ConnectionStrings:connectionDb"]);
+                SqlConnection sqlConnection = new SqlConnection(this.ConnectionString);
+
                 SqlCommand sqlCommand = new SqlCommand("ChatAppRegistration", sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.Parameters.AddWithValue("@FirstName", registrationModel.FirstName);
@@ -98,7 +102,8 @@ namespace RepositoryLayer.Service
             try
             {
                 var password = PasswordEncrypt.Encryptdata(loginModel.Password);
-                SqlConnection sqlConnection = new SqlConnection(configuration["ConnectionStrings:connectionDb"]);
+                //  SqlConnection sqlConnection = new SqlConnection(configuration["ConnectionStrings:connectionDb"]);
+                SqlConnection sqlConnection = new SqlConnection(ConnectionString);
 
                 SqlCommand sqlCommand = new SqlCommand("ChatLogin", sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -110,6 +115,7 @@ namespace RepositoryLayer.Service
                 while (sqlDataReader.Read())
                 {
                     userData = new RegistrationModel();
+                   userData.Id = Convert.ToInt32(sqlDataReader["Id"]);
                     userData.Email = sqlDataReader["Email"].ToString();
                     userData.Password = sqlDataReader["Password"].ToString();
                     userData.FirstName = sqlDataReader["FirstName"].ToString();
@@ -171,7 +177,8 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                SqlConnection sqlConnection = new SqlConnection(configuration["ConnectionStrings:connectionDb"]);
+                // SqlConnection sqlConnection = new SqlConnection(configuration["ConnectionStrings:connectionDb"]);
+                SqlConnection sqlConnection = new SqlConnection(this.ConnectionString);
                 SqlCommand sqlCommand = new SqlCommand("GetAllUsers", sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlConnection.Open();

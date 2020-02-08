@@ -16,7 +16,7 @@ namespace CommonLayer.Model
         /// <summary>
         /// Get and set Id
         /// </summary>
-        [Key]
+       // [Key]
         public int Id { get; set; }
 
         /// <summary>

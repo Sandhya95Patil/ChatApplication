@@ -4,37 +4,43 @@
     <meta charset="utf-8" />
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 
-    <script type="text/javascript" src="/js/Message.js"></script>
+    <script type="text/javascript" src="/js//Message.js"></script>
     <title></title>
 </head>
 <body>
-  <div id="chatBox">
-     <h1 id="h"></h1>
-     
-      <div id="chatArea">
-          <input id="input" type="text" placeholder="Type a message" />
-          <button id="sendMessage">Send</button>
-      </div>
-  </div>
+
+    <center>
+        <div id="chatBox">
+            <div id="chatArea">
+                <input id="input" type="text" placeholder="Type a message" autocomplete="off" />
+                <button type="button" id="sendMessage" onclick="SendMessage();">Send</button>
+            </div>
+        </div>
+    </center>
     <style>
-        body{
-             background-image:url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');  
+        body {
+            background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
         }
-        #chatBox{
-            display:flex;
-            background-color:pink;
-            height:50rem;
-            width:50rem;
-            margin-left:40rem;
-            margin-top:5rem;
+
+        #chatBox {
+            display: flex;
+            background-color: pink;
+            height: 50rem;
+            width: 50rem;
+            margin-top: 5rem;
+            flex-direction: column-reverse;
         }
-        #h{
-            font-size:10rem;
-            margin-left:2rem;
+
+        h1 {
+            background-color: mediumpurple;
+            color: black;
+            height: 10%;
+            text-align: initial;
+            padding-left: 10px;
         }
-        #sendMessage{
+
+        #sendMessage {
             margin-top: 45rem;
-            margin-left: 20rem;
             font-family: "Roboto", sans-serif;
             text-transform: uppercase;
             background: orange;
@@ -42,9 +48,48 @@
             font-size: 14px;
             cursor: pointer;
             width: 70px;
-            border:0;
-            outline:0;
+            border: 0;
+            outline: 0;
         }
     </style>
+    <script>
+        (function () {
+            var webSocketProtocol = location.protocol == "https:" ? "wss:" : "ws:";
+            console.log("Protocol", webSocketProtocol);
+            var webSocketURI = webSocketProtocol + "//" + location.host + "/ws";
+            console.log("URL", webSocketURI);
+
+            socket = new WebSocket(webSocketURI);
+
+            socket.onopen = function () {
+                console.log("Connected.");
+            };
+
+            socket.onclose = function (event) {
+                if (event.wasClean) {
+                    console.log('Disconnected.');
+                } else {
+                    console.log('Connection lost.'); // for example if server processes is killed
+                }
+                console.log('Code: ' + event.code + '. Reason: ' + event.reason);
+            };
+
+            socket.onmessage = function (event) {
+                console.log("Data received: " + event.data);
+            };
+
+            socket.onerror = function (error) {
+                console.log("Error: " + error.message);
+            };
+
+            var form = document.getElementById('chatArea');
+            var message = document.getElementById('sendMessage');
+            form.onsubmit = function () {
+                socket.send(message.value);
+                message.value = '';
+                return false;
+            };
+        })();
+    </script>
 </body>
 </html>
