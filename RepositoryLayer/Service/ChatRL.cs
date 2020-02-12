@@ -53,7 +53,7 @@ namespace RepositoryLayer.Service
                 }
                 else
                 {
-                    return null;
+                    throw new Exception ();
                 }
                
             }

@@ -1,11 +1,10 @@
 ﻿$(document).ready(function () {
     AllUsers();
-
-  
 })
-function userListClick(name) {
+function userListClick(name, receiverId) {
     alert("session storage " + name);
     sessionStorage.setItem('name', name);
+  sessionStorage.setItem('id', receiverId);
 }
 function AllUsers() {
     $.ajax({
@@ -16,11 +15,10 @@ function AllUsers() {
         dataType: "json",
         success: function (result) {
             console.log("result", result);
-            console.log("Zeroth value", result.data[0].firstName);
-
             $.each(result.data, function (key, item) {
-                console.log("Item======", item.firstName);
-                $('#users #lists').append('<li onClick="userListClick(\'' + item.firstName +'\')"><a href="Message.html"><h3>' + item.firstName + '</h3></a></li>')   
+                console.log("Id======", item.id);
+                $('#users #lists').append('<li onClick="userListClick(\'' + item.firstName +'\', \'' + item.id + '\')"><a href="Message.html"><h3>' + item.firstName + '</h3></a></li>')  
+               
             })      
         },
         error: function (error) {

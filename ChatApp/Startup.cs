@@ -8,6 +8,8 @@ namespace ChatApp
 {
     using BusinessLayer.Interface;
     using BusinessLayer.Service;
+    using ChatApp.Handler;
+    using ChatApp.SocketManager;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -51,6 +53,8 @@ namespace ChatApp
             services.AddTransient<IChatBL, ChatBL>();
             services.AddTransient<IChatRL, ChatRL>();
 
+            services.AddWebSocketManager();
+
             var key= "This is sign in key";
 
             ////This is for Token generation
@@ -92,7 +96,7 @@ namespace ChatApp
         /// </summary>
         /// <param name="app">app parameter</param>
         /// <param name="env">env parameter</param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -103,13 +107,9 @@ namespace ChatApp
                 app.UseHsts();
             }
 
-
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
-            app.UseFileServer(enableDirectoryBrowsing: true);
             app.UseWebSockets(); // Only for Kestrel
-
-            app.Map("/ws", builder =>
+            app.MapSockets("/ws", serviceProvider.GetService<WebSocketMessageHandler>());
+            /*app.Map("/ws", builder =>
             {
                 builder.Use(async (context, next) =>
                 {
@@ -122,13 +122,16 @@ namespace ChatApp
                     await next();
                 });
             });
-
+*/
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseFileServer(enableDirectoryBrowsing: true);
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
-        private async Task Echo(WebSocket webSocket)
+      /*  private async Task Echo(WebSocket webSocket)
         {
             byte[] buffer = new byte[1024 * 4];
             var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
@@ -138,6 +141,6 @@ namespace ChatApp
                 result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             }
             await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
-        }
+        }*/
     }
 }

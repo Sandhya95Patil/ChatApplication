@@ -8,12 +8,14 @@
     <title></title>
 </head>
 <body>
-
     <center>
+        <div>
+            <a href="/Template//Dashboard.html" style="color:darkred;">Back</a>
+        </div>
         <div id="chatBox">
             <div id="chatArea">
-                <input id="input" type="text" placeholder="Type a message" autocomplete="off" />
-                <button type="button" id="sendMessage" onclick="SendMessage();">Send</button>
+                    <input id="messageToSend" type="text" placeholder="Type a message" autocomplete="off" />
+                    <button type="button" id="sendButton">Send</button>
             </div>
         </div>
     </center>
@@ -21,75 +23,57 @@
         body {
             background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
         }
-
         #chatBox {
-            display: flex;
             background-color: pink;
-            height: 50rem;
+            height: 38rem;
             width: 50rem;
-            margin-top: 5rem;
-            flex-direction: column-reverse;
+            margin-top: 1rem;
         }
 
+        #chatArea{
+            margin-left:10px;
+            height:30rem;
+            width:42rem;
+            background-color:paleturquoise;
+            margin-top:40px;
+        }
         h1 {
-            background-color: mediumpurple;
             color: black;
-            height: 10%;
+            height: 5%;
             text-align: initial;
             padding-left: 10px;
+            margin-top:18px;
+            flex-direction: column-reverse;
+            margin-top:4px;
+        }
+         h3 {
+            color: black;
+            height: 100%;
+            /*text-align: initial;
+            padding-left: 10px;
+            margin-top:5px;*/
+            background-color : aqua;
+            flex-direction: column-reverse;
+            
         }
 
-        #sendMessage {
-            margin-top: 45rem;
+        #sendButton {
+            margin-top:26rem;
             font-family: "Roboto", sans-serif;
             text-transform: uppercase;
-            background: orange;
-            padding: 15px;
+            background: green;
+            padding: 13px;
             font-size: 14px;
             cursor: pointer;
             width: 70px;
             border: 0;
             outline: 0;
         }
+        #messageToSend{
+            padding:13px;
+            width:28rem;
+        
+        }
     </style>
-    <script>
-        (function () {
-            var webSocketProtocol = location.protocol == "https:" ? "wss:" : "ws:";
-            console.log("Protocol", webSocketProtocol);
-            var webSocketURI = webSocketProtocol + "//" + location.host + "/ws";
-            console.log("URL", webSocketURI);
-
-            socket = new WebSocket(webSocketURI);
-
-            socket.onopen = function () {
-                console.log("Connected.");
-            };
-
-            socket.onclose = function (event) {
-                if (event.wasClean) {
-                    console.log('Disconnected.');
-                } else {
-                    console.log('Connection lost.'); // for example if server processes is killed
-                }
-                console.log('Code: ' + event.code + '. Reason: ' + event.reason);
-            };
-
-            socket.onmessage = function (event) {
-                console.log("Data received: " + event.data);
-            };
-
-            socket.onerror = function (error) {
-                console.log("Error: " + error.message);
-            };
-
-            var form = document.getElementById('chatArea');
-            var message = document.getElementById('sendMessage');
-            form.onsubmit = function () {
-                socket.send(message.value);
-                message.value = '';
-                return false;
-            };
-        })();
-    </script>
 </body>
 </html>

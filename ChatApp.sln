@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryLayer", "Reposito
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLayer", "CommonLayer\CommonLayer.csproj", "{A3B49BD1-6592-4039-BF68-C167224D86D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChatApp", "WebChatApp\WebChatApp.csproj", "{CFB76307-3EDC-4208-9132-7B6362D058A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebChatApp", "WebChatApp\WebChatApp.csproj", "{CFB76307-3EDC-4208-9132-7B6362D058A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
