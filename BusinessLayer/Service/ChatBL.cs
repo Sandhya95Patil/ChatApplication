@@ -1,17 +1,26 @@
-﻿using BusinessLayer.Interface;
-using CommonLayer.Model;
-using CommonLayer.Response;
-using RepositoryLayer.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="ChatBL.cs" company="BridgeLabz">
+//     Company copyright tag.
+// </copyright>
+// <creater name="Sandhya Patil"/>
+//-----------------------------------------------------------------------
 namespace BusinessLayer.Service
 {
+    using BusinessLayer.Interface;
+    using CommonLayer.Model;
+    using CommonLayer.Response;
+    using RepositoryLayer.Interface;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// ChatBL class
+    /// </summary>
     public class ChatBL : IChatBL
     {
         private readonly IChatRL chatRL;
+
         public ChatBL (IChatRL chatRL)
         {
             this.chatRL = chatRL;

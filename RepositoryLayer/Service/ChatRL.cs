@@ -1,19 +1,35 @@
-﻿using CommonLayer.Model;
-using CommonLayer.Response;
-using Microsoft.Extensions.Configuration;
-using RepositoryLayer.Interface;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="ChatRL.cs" company="BridgeLabz">
+//     Company copyright tag.
+// </copyright>
+// <creater name="Sandhya Patil"/>
+//-----------------------------------------------------------------------
 namespace RepositoryLayer.Service
 {
+    using CommonLayer.Model;
+    using CommonLayer.Response;
+    using Microsoft.Extensions.Configuration;
+    using RepositoryLayer.Interface;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// ChatRL class
+    /// </summary>
     public class ChatRL : IChatRL
     {
+        /// <summary>
+        /// inject IConfiguration
+        /// </summary>
         private readonly IConfiguration configuration;
+
+        /// <summary>
+        /// Initializes for ChatRL class
+        /// </summary>
+        /// <param name="configuration">configuration parameter</param>
         public ChatRL(IConfiguration configuration)
         {
             this.configuration = configuration;
@@ -21,6 +37,12 @@ namespace RepositoryLayer.Service
 
         private readonly string ConnectionString = "server=(LocalDb)\\LocalDB;Database=ChatAppDB;Trusted_Connection=true; MultipleActiveResultSets = true";
 
+        /// <summary>
+        /// AddMessage Method
+        /// </summary>
+        /// <param name="addMessageModel">addMessageModel parameter</param>
+        /// <param name="senderId">senderId parameter</param>
+        /// <returns>returns the added message</returns>
         public async Task<AddMessageResponseModel> AddMessage(AddMessageModel addMessageModel, int senderId)
         {
             try
@@ -63,11 +85,18 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// GetAllMessages Method
+        /// </summary>
+        /// <param name="senderId">senderId parameter</param>
+        /// <param name="receiverId">receiverId parameter</param>
+        /// <returns>returns the all messages</returns>
         public async Task<IList<GetAllMessageResModel>> GetAllMessages(int senderId, int receiverId)
         {
             try
             {
-                SqlConnection sqlConnection = new SqlConnection(configuration["ConnectionStrings:connectionDb"]);
+                //  SqlConnection sqlConnection = new SqlConnection(configuration["ConnectionStrings:connectionDb"]);
+                SqlConnection sqlConnection = new SqlConnection(this.ConnectionString);
                 SqlCommand sqlCommand = new SqlCommand("GetAllMessages", sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.Parameters.AddWithValue("SenderId", senderId);

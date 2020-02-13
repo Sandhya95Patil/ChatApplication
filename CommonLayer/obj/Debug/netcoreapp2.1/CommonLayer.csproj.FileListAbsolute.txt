@@ -5,3 +5,4 @@ C:\Users\admin\source\repos\ChatApp\CommonLayer\obj\Debug\netcoreapp2.1\CommonLa
 C:\Users\admin\source\repos\ChatApp\CommonLayer\obj\Debug\netcoreapp2.1\CommonLayer.AssemblyInfo.cs
 C:\Users\admin\source\repos\ChatApp\CommonLayer\obj\Debug\netcoreapp2.1\CommonLayer.dll
 C:\Users\admin\source\repos\ChatApp\CommonLayer\obj\Debug\netcoreapp2.1\CommonLayer.pdb
+C:\Users\admin\source\repos\ChatApp\CommonLayer\obj\Debug\netcoreapp2.1\CommonLayer.csprojAssemblyReference.cache

@@ -15,7 +15,7 @@
         <div id="chatBox">
             <div id="chatArea">
                     <input id="messageToSend" type="text" placeholder="Type a message" autocomplete="off" />
-                    <button type="button" id="sendButton">Send</button>
+                    <button type="button" id="sendButton" onclick="SendMessage()">Send</button>
             </div>
         </div>
     </center>
@@ -46,15 +46,14 @@
             flex-direction: column-reverse;
             margin-top:4px;
         }
-         h3 {
+        h3 {
             color: black;
             height: 100%;
             /*text-align: initial;
             padding-left: 10px;
             margin-top:5px;*/
-            background-color : aqua;
+            background-color: aqua;
             flex-direction: column-reverse;
-            
         }
 
         #sendButton {

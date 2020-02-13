@@ -1,26 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BusinessLayer.Interface;
-using CommonLayer.Model;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="ChatController.cs" company="BridgeLabz">
+//     Company copyright tag.
+// </copyright>
+// <creater name="Sandhya Patil"/>
+//-----------------------------------------------------------------------
 namespace ChatApp.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using BusinessLayer.Interface;
+    using CommonLayer.Model;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+
+    /// <summary>
+    /// ChatController class
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class ChatController : ControllerBase
     {
+        /// <summary>
+        /// Inject the Chat interface
+        /// </summary>
         private readonly IChatBL chatBL;
+
+        /// <summary>
+        /// Initializes the chat controller class 
+        /// </summary>
+        /// <param name="chatBL"></param>
         public ChatController(IChatBL chatBL)
         {
             this.chatBL = chatBL;
         }
 
+        /// <summary>
+        /// AddMessage Method
+        /// </summary>
+        /// <param name="addMessageModel">addMessageModel parameter</param>
+        /// <returns>returns the added message</returns>
         [HttpPost]
         [Route("SendMessage")]
         public async Task<IActionResult> AddMessage(AddMessageModel addMessageModel)
@@ -44,6 +65,11 @@ namespace ChatApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Get All Messages method
+        /// </summary>
+        /// <param name="receiverId">receiverId parameter</param>
+        /// <returns>returns the all messages</returns>
         [HttpGet]
         [Route("AllMessages/{receiverId}")]
         public async Task<IActionResult> GetAllMessages(int receiverId)

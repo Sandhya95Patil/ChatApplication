@@ -1,5 +1,7 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
     Receiver();
+   // AllMessages();
     function connect() {
         var webSocketProtocol = location.protocol == "https:" ? "wss:" : "ws:";
         var webSocketURI = webSocketProtocol + "//localhost:44374/ws";
@@ -30,7 +32,7 @@
             }
             e.preventDefault();
             //var name = sessionStorage.getItem('name');
-            var message = recName+ ":" + $('#messageToSend').val();
+            var message = recName + ":" + $('#messageToSend').val();
             socket.send(message);
         });     
     }
@@ -56,13 +58,10 @@ function Receiver() {
     console.log("id", id);
 }
 
-  
-
 function SendMessage() {
-    
     alert("message send");
     var userdata = {
-        Message: $('#input').val(),
+        Message: $('#messageToSend').val(),
         ReceiverId: id
     };
     console.log("=============>", userdata);
@@ -81,4 +80,21 @@ function SendMessage() {
             console.log("error", errormessage.responsetext);
         }
     });
+}
+function AllMessages() {
+    id = sessionStorage.getItem('id');
+    $.ajax({
+        url: "https://localhost:44374/api/Chat/AllMessages" + id,
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') },
+        success: function (result) {
+            console.log("send message", result);
+            $('#chatArea').append(result.data.message).text();
+        },
+        error: function (errormessage) {
+            console.log("error", errormessage.responsetext);
+        }
+    })
 }

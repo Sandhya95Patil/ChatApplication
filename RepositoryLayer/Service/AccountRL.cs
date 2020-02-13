@@ -173,6 +173,10 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Get All Users method
+        /// </summary>
+        /// <returns>return all users</returns>
         public async Task<IList<AllUserModel>> GetAllUsers()
         {
             try
