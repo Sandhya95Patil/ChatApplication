@@ -72,12 +72,12 @@ namespace ChatApp.Controllers
         /// <returns>returns the all messages</returns>
         [HttpGet]
         [Route("AllMessages/{receiverId}")]
-        public async Task<IActionResult> GetAllMessages(int receiverId)
+        public async Task<IActionResult> GetAllMessages()
         {
             try
             {
-                var claim = Convert.ToInt32(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
-                var data = await this.chatBL.GetAllMessage(claim, receiverId);
+                //var claim = Convert.ToInt32(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
+                var data = await this.chatBL.GetAllMessage();
                 if (data != null)
                 {
                     return this.Ok(new { status = "true", message = "All Messages", data});

@@ -39,11 +39,11 @@ namespace BusinessLayer.Service
             }
         }
 
-        public Task<IList<GetAllMessageResModel>> GetAllMessage(int senderId, int receiverId)
+        public Task<IList<GetAllMessageResModel>> GetAllMessage()
         {
             try
             {
-                var response = this.chatRL.GetAllMessages(senderId, receiverId);
+                var response = this.chatRL.GetAllMessages();
                 return response;
             }
             catch (Exception exception)

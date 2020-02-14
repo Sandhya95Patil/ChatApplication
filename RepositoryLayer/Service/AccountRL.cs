@@ -149,6 +149,7 @@ namespace RepositoryLayer.Service
 
                         var responseShow = new LoginResponseModel()
                         {
+                            Id=userData.Id,
                             FirstName = userData.FirstName,
                             LastName = userData.LastName,
                             Email = userData.Email,

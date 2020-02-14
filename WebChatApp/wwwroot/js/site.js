@@ -1,6 +1,5 @@
 ﻿
 function LoginForm() {
-    alert("login");
     var userData = {
         Email: $('#email').val(),
         Password: $('#password').val()
@@ -15,9 +14,9 @@ function LoginForm() {
         success: function (result) {
             console.log("Login", result);
             localStorage.setItem("token", result.data.token);
-
-                alert("Now You Are Redirect To Dashboard");
-                var location = window.location.href = "./Template//Dashboard.html";
+            localStorage.setItem("id", result.data.id);
+            console.log("id============>", result.data.id);
+            var location = window.location.href = "./Template//Dashboard.html";
             console.log("location", location);
 
         },
@@ -28,7 +27,6 @@ function LoginForm() {
 }
 
 function RegisterForm() {
-    alert("Register");
     console.log("Register");
     var userData = {
         FirstName: $('#firstName').val(),

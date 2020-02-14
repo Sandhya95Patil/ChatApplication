@@ -17,8 +17,7 @@ function AllUsers() {
             console.log("result", result);
             $.each(result.data, function (key, item) {
                 console.log("Id======", item.id);
-                $('#users #lists').append('<li onClick="userListClick(\'' + item.firstName +'\', \'' + item.id + '\')"><a href="Message.html"><h3>' + item.firstName + '</h3></a></li>')  
-               
+                $('#users #lists').append('<li onClick="userListClick(\'' + item.firstName +'\', \'' + item.id + '\')"><a href="Message.html"><h3>' + item.firstName + '</h3></a></li>')   
             })      
         },
         error: function (error) {

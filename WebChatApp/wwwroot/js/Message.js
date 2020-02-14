@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function () {
     Receiver();
-   // AllMessages();
+   AllMessages();
     function connect() {
         var webSocketProtocol = location.protocol == "https:" ? "wss:" : "ws:";
         var webSocketURI = webSocketProtocol + "//localhost:44374/ws";
@@ -21,12 +21,12 @@ $(document).ready(function () {
         socket.onmessage = function (event) {
              recName = sessionStorage.getItem('name');
             console.log("Message received By: " + recName + ' message: ' + event.data);
-            $('#chatArea').prepend(event.data + '<br />');
+            $('#chatArea #li').prepend('<li>' +event.data + '</li>');
         };
         socket.onerror = function (error) {
             console.log("Error: " + error);
         };
-        $('#messageToSend').keypress(function (e) {
+      /*  $('#messageToSend').keypress(function (e) {
             if (e.which != 13) {
                 return;
             }
@@ -34,19 +34,18 @@ $(document).ready(function () {
             //var name = sessionStorage.getItem('name');
             var message = recName + ":" + $('#messageToSend').val();
             socket.send(message);
-        });     
+        });     */
     }
     connect();
-/*
-     document.getElementById('sendButton').addEventListener("click", function () {
-         var sendMessage = function (element) {
-             console.log("Sending message", element);
-             socket.send(element);
-        }
-        var message = document.getElementById('messageToSend');
-        sendMessage(message);
-    })
-   */ 
+
+    document.getElementById('sendButton').addEventListener("click", function () {
+        var sendMessage = function (element) {
+            console.log("Sending message", element.value);
+             socket.send(element.value);
+         }
+         var message = document.getElementById('messageToSend');
+         sendMessage(message);
+    })  
 })
 
 function Receiver() {
@@ -59,7 +58,6 @@ function Receiver() {
 }
 
 function SendMessage() {
-    alert("message send");
     var userdata = {
         Message: $('#messageToSend').val(),
         ReceiverId: id
@@ -74,7 +72,6 @@ function SendMessage() {
         headers: { "Authorization":'Bearer ' + localStorage.getItem('token')},
         success: function (result) {
             console.log("send message", result);
-            $('#chatArea').append(result.data.message).text();
         },
         error: function (errormessage) {
             console.log("error", errormessage.responsetext);
@@ -82,16 +79,31 @@ function SendMessage() {
     });
 }
 function AllMessages() {
-    id = sessionStorage.getItem('id');
+    recId = sessionStorage.getItem('id');
+    console.log("========", recId);
     $.ajax({
-        url: "https://localhost:44374/api/Chat/AllMessages" + id,
+        url: "https://localhost:44374/api/Chat/AllMessages/" + recId,
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') },
         success: function (result) {
-            console.log("send message", result);
-            $('#chatArea').append(result.data.message).text();
+            console.log("All Messages====================>", result);
+            senId = localStorage.getItem('id');
+            var reverse = (result.data).reverse();
+            console.log("Reverse array", reverse);
+            $.each(reverse, function (key, item) {
+                    if (item.receiverId == recId && item.senderId == senId || item.receiverId == senId && item.senderId == recId) {
+                        console.log("=================>", item.receiverId);
+                        // $('#chatArea').prepend(item.message+ '<br>')
+                        if (item.receiverId == recId) {
+                            $('#chatArea').prepend('<div style="text-align:right; color:blue; margin-right:10px; font-size:20px">' + item.message + '</div>')
+                        }
+                        else {
+                            $('#chatArea').prepend('<div style="text-align:left; color:black;margin-left:10px; font-size:20px">' + item.message + '</div>')
+                        }
+                    }
+                })    
         },
         error: function (errormessage) {
             console.log("error", errormessage.responsetext);

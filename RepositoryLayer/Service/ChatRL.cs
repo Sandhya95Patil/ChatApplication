@@ -91,7 +91,7 @@ namespace RepositoryLayer.Service
         /// <param name="senderId">senderId parameter</param>
         /// <param name="receiverId">receiverId parameter</param>
         /// <returns>returns the all messages</returns>
-        public async Task<IList<GetAllMessageResModel>> GetAllMessages(int senderId, int receiverId)
+        public async Task<IList<GetAllMessageResModel>> GetAllMessages()
         {
             try
             {
@@ -99,8 +99,8 @@ namespace RepositoryLayer.Service
                 SqlConnection sqlConnection = new SqlConnection(this.ConnectionString);
                 SqlCommand sqlCommand = new SqlCommand("GetAllMessages", sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("SenderId", senderId);
-                sqlCommand.Parameters.AddWithValue("ReceiverId", receiverId);
+                //sqlCommand.Parameters.AddWithValue("SenderId", senderId);
+                //sqlCommand.Parameters.AddWithValue("ReceiverId", receiverId);
                 sqlConnection.Open();
                 SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync();
                 IList<GetAllMessageResModel> messageList = new List<GetAllMessageResModel>();

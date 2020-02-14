@@ -11,6 +11,7 @@ namespace CommonLayer.Response
     /// </summary>
     public class LoginResponseModel
     {
+        public int Id { get; set; }
         /// <summary>
         /// get and set first name
         /// </summary>

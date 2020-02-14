@@ -17,6 +17,6 @@ namespace BusinessLayer.Interface
     public interface IChatBL
     {
         Task<AddMessageResponseModel> AddMessage(AddMessageModel addMessageModel, int senderId);
-        Task<IList<GetAllMessageResModel>> GetAllMessage(int senderId, int receiverId);
+        Task<IList<GetAllMessageResModel>> GetAllMessage();
     }
 }

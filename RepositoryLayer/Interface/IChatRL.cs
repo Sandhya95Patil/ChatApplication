@@ -30,6 +30,6 @@ namespace RepositoryLayer.Interface
         /// <param name="senderId">senderId parameter</param>
         /// <param name="ReceiverId">ReceiverId parameter</param>
         /// <returns>returns all messages</returns>
-        Task<IList<GetAllMessageResModel>> GetAllMessages(int senderId, int ReceiverId);
+        Task<IList<GetAllMessageResModel>> GetAllMessages();
     }
 }
