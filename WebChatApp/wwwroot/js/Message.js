@@ -1,5 +1,4 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
     Receiver();
    AllMessages();
     function connect() {
@@ -21,7 +20,7 @@ $(document).ready(function () {
         socket.onmessage = function (event) {
              recName = sessionStorage.getItem('name');
             console.log("Message received By: " + recName + ' message: ' + event.data);
-            $('#chatArea #li').prepend('<li>' +event.data + '</li>');
+            $('#chatArea #li').prepend('<li>' + event.data + '</li>');
         };
         socket.onerror = function (error) {
             console.log("Error: " + error);
@@ -41,11 +40,11 @@ $(document).ready(function () {
     document.getElementById('sendButton').addEventListener("click", function () {
         var sendMessage = function (element) {
             console.log("Sending message", element.value);
-             socket.send(element.value);
-         }
-         var message = document.getElementById('messageToSend');
-         sendMessage(message);
-    })  
+            socket.send(element.value);
+        }
+        var message = document.getElementById('messageToSend');
+        sendMessage(message);
+    });
 })
 
 function Receiver() {
@@ -100,7 +99,7 @@ function AllMessages() {
                             $('#chatArea').prepend('<div style="text-align:right; color:blue; margin-right:10px; font-size:20px">' + item.message + '</div>')
                         }
                         else {
-                            $('#chatArea').prepend('<div style="text-align:left; color:black;margin-left:10px; font-size:20px">' + item.message + '</div>')
+                            $('#chatArea').prepend('<div style="text-align:left; color:purple;margin-left:10px; font-size:20px">' + item.message + '</div>')
                         }
                     }
                 })    

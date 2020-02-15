@@ -9,13 +9,14 @@
 </head>
 <body>
     <center>
-        <div>
-            <a href="/Template//Dashboard.html" style="color:darkred;">Back</a>
-        </div>
+       
         <div id="chatBox">
+            <span>
+                <a href="/Template//Dashboard.html" style="color:darkred; margin-left:40rem; margin-top:10px">Back</a>
+            </span>
             <div id="chatArea">
-                        <input id="messageToSend" type="text" placeholder="Type a message" autocomplete="off" />
-                        <button type="button" id="sendButton" onclick="SendMessage()">Send</button>
+                <input id="messageToSend" type="text" placeholder="Type a message" autocomplete="off" />
+                <button type="button" id="sendButton" onclick="SendMessage()">Send</button>
             </div>
         </div>
     </center>
@@ -27,7 +28,7 @@
             background-color: pink;
             height: auto;
             width: 50rem;
-            margin-top: 1rem;
+            margin-top: 2rem;
            
         }
 
@@ -36,16 +37,16 @@
             height:auto;
             width:42rem;
             background-color:paleturquoise;
-            margin-top:40px;
         }
         h1 {
+            margin-left: 20px;
             color: black;
             height: 5%;
             text-align: initial;
             padding-left: 10px;
-            margin-top:18px;
+            margin-top: 18px;
             flex-direction: column-reverse;
-            margin-top:4px;
+            margin-top: 4px;
         }
         h3 {
             color: black;
@@ -58,21 +59,22 @@
         }
 
         #sendButton {
-            margin-top:26rem;
+            margin-top: 8rem;
             font-family: "Roboto", sans-serif;
             text-transform: uppercase;
             background: green;
-            padding: 13px;
+            padding: 20px;
             font-size: 14px;
             cursor: pointer;
-            width: 70px;
+            width: 100px;
             border: 0;
             outline: 0;
         }
         #messageToSend{
             padding:13px;
-            width:28rem;
+            width:30rem;
             font-size:20px;
+            background-color:antiquewhite;
         
         }
     </style>

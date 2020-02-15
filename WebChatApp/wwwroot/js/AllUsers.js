@@ -2,7 +2,6 @@
     AllUsers();
 })
 function userListClick(name, receiverId) {
-    alert("session storage " + name);
     sessionStorage.setItem('name', name);
   sessionStorage.setItem('id', receiverId);
 }
